@@ -1,0 +1,183 @@
+    <link name="base_link">
+        <visual>
+            <origin xyz="0 0 0.05" rpy="0 0 0" />
+            <geometry>
+                <box size="0.19 0.135 0.06"/>
+            </geometry>
+            <material name="yellow">
+                <color rgba="1 0.4 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.05" rpy="0 0 0" />
+            <geometry>
+                <box size="0.19 0.135 0.06"/>
+            </geometry>
+            <!-- <material name="yellow">
+                <color rgba="1 0.4 0 1"/>
+            </material> -->
+        </collision>
+    </link>
+    <!-- #IMU -->
+    <joint name="IMU-HFI-A9_joint" type="fixed">
+        <origin xyz="0 0 0.0875" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child  link="IMU-HFI-A9_link"/>
+    </joint>
+    <link name="IMU-HFI-A9_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <box size="0.034 0.034 0.015" />
+            </geometry>
+            <material name="pink">
+               <color rgba="1 0.3 1 1" />
+            </material>
+        </visual>
+    </link>
+    <!-- #main body -->
+    <joint name="body_joint" type="fixed">
+        <origin xyz="-0.004 0.0025 0.3515" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child  link="body_link"/>
+    </joint>
+    <link name="body_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <box size="0.298 0.21 0.503" />
+            </geometry>
+            <material name="brown">
+               <color rgba="0.4 0.4 0 0.9" />
+            </material>
+        </visual>
+    </link>
+    <!-- #M10p Lidar -->
+    <joint name="lidar_joint" type="fixed">
+        <origin xyz="0.06 0 0.2965" rpy="0 0 0"/>
+        <parent link="body_link"/>
+        <child  link="lidar_link"/>
+    </joint>
+    <link name="lidar_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <cylinder radius="0.04" length="0.09" />
+            </geometry>
+            <material name="red">
+               <color rgba="1 0 0 0.9" />
+            </material>
+        </visual>
+    </link>
+    <!-- #linear actuator -->
+    <joint name="linear_actuator_joint" type="prismatic">
+        <origin xyz="-0.094 0.0025 0.1" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child  link="linear_actuator_link"/>
+        <limit effort="1000.0" lower="0.0" upper="0.7" velocity="0.03" />
+        <axis xyz="0 0 1"/>
+    </joint>
+    <link name="linear_actuator_link">
+        <visual>
+            <origin xyz="0 0 0.4" rpy="0 0 0" />
+            <geometry>
+               <cylinder radius="0.01" length="0.8" />
+            </geometry>
+            <material name="dark-green">
+               <color rgba="0 0.4 0 1" />
+            </material>
+        </visual>
+    </link>
+    <!-- #camera -->
+    <joint name="camera_joint" type="fixed">
+        <origin xyz="0 0 0.93" rpy="0 0 0"/>
+        <parent link="linear_actuator_link"/>
+        <child  link="camera_link"/>
+    </joint>
+    <link name="camera_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 1.5707 0" />
+            <geometry>
+               <cylinder radius="0.02" length="0.02" />
+            </geometry>
+            <material name="yellow">
+               <color rgba="1 0.4 0 1" />
+            </material>
+        </visual>
+    </link>
+    <!-- #front left wheel -->
+    <joint name="front_left_wheel_joint" type="continuous">
+        <origin xyz="0.095 0.1025 0.04" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child  link="front_left_wheel_link"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="front_left_wheel_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5707 0 0" />
+            <geometry>
+               <cylinder radius="0.04" length="0.04" />
+            </geometry>
+            <material name="white">
+               <color rgba="1 1 1 0.9" />
+            </material>
+        </visual>
+    </link>
+    <!-- #rear left wheel -->
+    <joint name="rear_left_wheel_joint" type="continuous">
+        <origin xyz="-0.095 0.1025 0.04" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child  link="rear_left_wheel_link"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="rear_left_wheel_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5707 0 0" />
+            <geometry>
+               <cylinder radius="0.04" length="0.04" />
+            </geometry>
+            <material name="white">
+               <color rgba="1 1 1 0.9" />
+            </material>
+        </visual>
+    </link>
+    <!-- #rear right wheel -->
+    <joint name="rear_right_wheel_joint" type="continuous">
+        <origin xyz="-0.095 -0.1025 0.04" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child  link="rear_right_wheel_link"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="rear_right_wheel_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="-1.5707 0 0" />
+            <geometry>
+               <cylinder radius="0.04" length="0.04" />
+            </geometry>
+            <material name="white">
+               <color rgba="1 1 1 0.9" />
+            </material>
+        </visual>
+    </link>
+    <!-- #front right wheel -->
+    <joint name="front_right_wheel_joint" type="continuous">
+        <origin xyz="0.095 -0.1025 0.04" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child  link="front_right_wheel_link"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name="front_right_wheel_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="-1.5707 0 0" />
+            <geometry>
+               <cylinder radius="0.04" length="0.04" />
+            </geometry>
+            <material name="white">
+               <color rgba="1 1 1 0.9" />
+            </material>
+        </visual>
+    </link>
+    
+</robot>
+
+

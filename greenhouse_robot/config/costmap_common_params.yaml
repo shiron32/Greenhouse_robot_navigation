@@ -1,0 +1,39 @@
+# footprint: [[-0.149, -0.105], [0.149, -0.105], [0.149, 0.105], [-0.149, 0.105]]
+footprint: [[-0.105, -0.105], [-0.105, 0.105], [0.041, 0.105], [0.041, -0.105]]
+footprint_padding: 0.0
+
+robot_base_frame: base_link
+resolution: 0.03
+transform_tolerance: 0.5
+
+obstacle_range: 2.0
+raytrace_range: 2.5
+feasibility_check_no_poses: 5
+
+
+# Layer definitions
+static_layer:
+    map_topic:            "/map"
+    subscribe_to_updates: true
+
+
+global_inflation_layer:
+    enabled:              true
+    cost_scaling_factor:  5.0
+    inflation_radius:     0.2
+
+local_inflation_layer:
+    enabled:              true
+    cost_scaling_factor:  5.0
+    inflation_radius:     0.2
+
+
+global_obstacle_layer:
+    observation_sources: laser_scan_sensor
+    footprint_clearing_enabled: true
+    laser_scan_sensor: {data_type: LaserScan, sensor_frame: base_link, clearing: false, marking: true, topic: /scan}
+
+local_obstacle_layer:
+    observation_sources: laser_scan_sensor
+    footprint_clearing_enabled: true
+    laser_scan_sensor: {data_type: LaserScan, sensor_frame: base_link, clearing: true, marking: true, topic: /scan}

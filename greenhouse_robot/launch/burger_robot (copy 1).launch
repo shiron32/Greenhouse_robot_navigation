@@ -1,0 +1,55 @@
+<launch>
+
+  <!-- robot description and spawn urdf -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro" />
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_burger -param robot_description -x 0 -y 0 -z 0 "/>
+
+  <!-- gazebo launching -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find greenhouse_robot)/worlds/nav_map_2.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- robot and joint state publishers -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <param name="use_tf_static" value="true"/>
+  </node>
+
+
+  <!-- fusion of odometry and IMU -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local">
+    <param name="frequency" value="50.0" />
+    <param name="sensor_timeout" value="0.1" />
+    <param name="transform_time_offset" value="0.1" />
+    <param name="two_d_mode" value="true" />
+    <param name="publish_tf" value="true" />
+    <param name="map_frame" value="map" />
+    <param name="odom_frame" value="odom" />
+    <param name="base_link_frame" value="base_footprint" />
+    <param name="world_frame" value="odom" />
+
+    <param name="imu0" value="imu"/>
+    <param name="odom0" value="odom"/>
+    <param name="odom0_differential" value="true"/>
+    <param name="imu0_differential" value="true"/>
+
+    <rosparam param="odom0_config">[true,  true,  false,
+                                  false, false, false,
+                                  true,  false, false,
+                                  false, false, true,
+                                  false, false, false]</rosparam>
+    <rosparam param="imu0_config">[false, false, false, 
+                                   false, false, true,
+                                   false, false, false, 
+                                   false, false, true,
+                                   true, false, false]</rosparam>
+
+    <remap from="/odometry/filtered" to="/odometry/filtered"/>    
+
+  </node>
+
+</launch>

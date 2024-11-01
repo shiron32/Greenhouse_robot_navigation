@@ -1,0 +1,17 @@
+local_costmap:
+    global_frame: map
+
+    static_map: false
+    rolling_window: true
+    width: 3.0
+    height: 3.0
+    resolution: 0.03
+
+    update_frequency: 5.0
+    publish_frequency: 5.0
+
+
+    plugins: 
+        - {name: static_layer,            type: "costmap_2d::StaticLayer"}
+        - {name: local_inflation_layer,         type: "costmap_2d::InflationLayer"}
+        - {name: local_obstacle_layer,          type: "costmap_2d::ObstacleLayer"}

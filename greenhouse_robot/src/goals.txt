@@ -1,0 +1,23 @@
+self.goal_pose.position.x = 5.570246696472168
+self.goal_pose.position.y = -2.3043313026428223
+self.goal_pose.position.z = 0.0
+self.goal_pose.orientation.x = 0.0
+self.goal_pose.orientation.y = 0.0
+self.goal_pose.orientation.z = 0.007031941574306871
+self.goal_pose.orientation.w = 0.9999752755931997
+
+self.goal_pose.position.x = 1.6025564670562744
+self.goal_pose.position.y = 2.5330090522766113
+self.goal_pose.position.z = 0.0
+self.goal_pose.orientation.x = 0.0
+self.goal_pose.orientation.y = 0.0
+self.goal_pose.orientation.z = 0.15353448559798752
+self.goal_pose.orientation.w = 0.9881432900810294
+
+self.goal_pose.position.x = 4.853727340698242
+self.goal_pose.position.y = 2.327517032623291
+self.goal_pose.position.z = 0.0
+self.goal_pose.orientation.x = 0.0
+self.goal_pose.orientation.y = 0.0
+self.goal_pose.orientation.z = -0.3901463582836084
+self.goal_pose.orientation.w = 0.9207528545261418

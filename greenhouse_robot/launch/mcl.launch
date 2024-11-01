@@ -1,0 +1,4 @@
+<launch>
+    <!--node pkg="odom-lidar-pf" name="mcl_cpp" type="mcl_cpp" output="screen"/-->
+    <node pkg="greenhouse_robot" name="mcl_python" type="mcl_python.py" output="screen"/>
+</launch>
